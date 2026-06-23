@@ -2,13 +2,18 @@ from flask import Flask, render_template, request, jsonify
 
 import anthropic
 import json
-
 from dotenv import load_dotenv
 import os
 load_dotenv()
 
 app = Flask(__name__)
-client = anthropic.Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
+#client = anthropic.Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
+api_key = os.getenv("ANTHROPIC_API_KEY")
+
+if api_key:
+    client = anthropic.Anthropic(api_key=api_key)
+else:
+    client = None
 
 
 # ── helpers ──────────────────────────────────────────────────────────────────
@@ -100,6 +105,12 @@ def generate():
             prompt = build_portfolio_prompt(data)
         else:
             return jsonify({'error': 'Invalid type'}), 400
+        
+        if client is None:
+            return jsonify({
+                'success': False,
+                'error': 'Demo Mode: Anthropic API key not configured.'
+            })
 
         message = client.messages.create(
             model="claude-opus-4-6",
@@ -117,6 +128,11 @@ def generate():
 @app.route('/improve', methods=['POST'])
 def improve():
     """AI tips to improve the generated document."""
+    if client is None:
+        return jsonify({
+            'success': False,
+            'error': 'Demo Mode: Anthropic API key not configured.'
+        })
     try:
         data = request.get_json()
         content = data.get('content', '')
