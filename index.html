@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI Resume & Portfolio Builder</title>
+  <link rel="stylesheet" href="/static/css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo">
+        <span class="logo-icon">⚡</span>
+        <span class="logo-text">ResumeAI</span>
+      </div>
+      <p class="header-sub">Build your career story with AI</p>
+    </div>
+  </header>
+
+  <main class="main">
+
+    <!-- STEP INDICATOR -->
+    <div class="steps">
+      <div class="step active" id="step-indicator-1">
+        <span class="step-num">1</span><span class="step-label">Your Info</span>
+      </div>
+      <div class="step-line"></div>
+      <div class="step" id="step-indicator-2">
+        <span class="step-num">2</span><span class="step-label">Choose Type</span>
+      </div>
+      <div class="step-line"></div>
+      <div class="step" id="step-indicator-3">
+        <span class="step-num">3</span><span class="step-label">Get Result</span>
+      </div>
+    </div>
+
+    <div class="content-grid">
+
+      <!-- LEFT: FORM -->
+      <section class="form-panel">
+        <h2 class="panel-title">Tell us about yourself</h2>
+
+        <!-- Personal Info -->
+        <div class="form-section">
+          <h3 class="section-label">Personal Details</h3>
+          <div class="form-row">
+            <div class="field">
+              <label>Full Name *</label>
+              <input type="text" id="name" placeholder="Rahul Sharma" />
+            </div>
+            <div class="field">
+              <label>Email *</label>
+              <input type="email" id="email" placeholder="rahul@gmail.com" />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="field">
+              <label>Phone</label>
+              <input type="text" id="phone" placeholder="+91 9876543210" />
+            </div>
+            <div class="field">
+              <label>Location</label>
+              <input type="text" id="location" placeholder="Kharagpur, WB" />
+            </div>
+          </div>
+          <div class="field">
+            <label>Target Role *</label>
+            <input type="text" id="target_role" placeholder="e.g. Software Developer Intern, Data Analyst" />
+          </div>
+        </div>
+
+        <!-- Education -->
+        <div class="form-section">
+          <h3 class="section-label">Education</h3>
+          <div class="field">
+            <textarea id="education" rows="3" placeholder="B.Tech in Computer Science, IIT Kharagpur, 2021-2025, CGPA: 8.5&#10;Class 12: XYZ School, 92%"></textarea>
+          </div>
+        </div>
+
+        <!-- Skills -->
+        <div class="form-section">
+          <h3 class="section-label">Skills</h3>
+          <div class="field">
+            <textarea id="skills" rows="3" placeholder="Python, JavaScript, React, Flask, SQL, Machine Learning, Git, Docker"></textarea>
+          </div>
+        </div>
+
+        <!-- Projects -->
+        <div class="form-section">
+          <h3 class="section-label">Projects</h3>
+          <div class="field">
+            <textarea id="projects" rows="4" placeholder="1. AI Chatbot - Built a chatbot using Python and OpenAI API. Used Flask for backend. 500+ users.&#10;2. E-commerce Website - Full stack app using React and Node.js"></textarea>
+          </div>
+        </div>
+
+        <!-- Experience -->
+        <div class="form-section">
+          <h3 class="section-label">Experience <span class="optional">(optional)</span></h3>
+          <div class="field">
+            <textarea id="experience" rows="3" placeholder="Web Dev Intern at ABC Company, June 2024 - Aug 2024. Built REST APIs, improved page speed by 30%."></textarea>
+          </div>
+        </div>
+
+        <!-- Achievements -->
+        <div class="form-section">
+          <h3 class="section-label">Achievements</h3>
+          <div class="field">
+            <textarea id="achievements" rows="3" placeholder="Won 1st place in college hackathon, 2024&#10;AIR 1200 in JEE Advanced&#10;Published research paper on ML"></textarea>
+          </div>
+        </div>
+
+        <!-- Links -->
+        <div class="form-section">
+          <h3 class="section-label">Links</h3>
+          <div class="form-row">
+            <div class="field">
+              <label>LinkedIn</label>
+              <input type="text" id="linkedin" placeholder="linkedin.com/in/rahulsharma" />
+            </div>
+            <div class="field">
+              <label>GitHub</label>
+              <input type="text" id="github" placeholder="github.com/rahulsharma" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Generate Buttons -->
+        <div class="btn-group">
+          <button class="btn btn-primary" onclick="generate('resume')">
+            <span>📄</span> Generate Resume
+          </button>
+          <button class="btn btn-secondary" onclick="generate('cover_letter')">
+            <span>✉️</span> Cover Letter
+          </button>
+          <button class="btn btn-accent" onclick="generate('portfolio')">
+            <span>🌐</span> Portfolio Content
+          </button>
+        </div>
+      </section>
+
+      <!-- RIGHT: OUTPUT -->
+      <section class="output-panel">
+        <div class="output-header">
+          <h2 class="panel-title" id="output-title">Your AI-Generated Document</h2>
+          <div class="output-actions" id="output-actions" style="display:none">
+            <button class="btn-small btn-copy" onclick="copyContent()">📋 Copy</button>
+            <button class="btn-small btn-download" onclick="downloadContent()">⬇️ Download</button>
+            <button class="btn-small btn-tips" onclick="getTips()">💡 Get Tips</button>
+          </div>
+        </div>
+
+        <!-- Placeholder -->
+        <div class="placeholder" id="placeholder">
+          <div class="placeholder-icon">🚀</div>
+          <p class="placeholder-text">Fill in your details on the left and click any generate button to create your professional document.</p>
+          <div class="placeholder-features">
+            <span class="feature-tag">✅ AI-Powered</span>
+            <span class="feature-tag">✅ ATS-Friendly</span>
+            <span class="feature-tag">✅ Personalized</span>
+          </div>
+        </div>
+
+        <!-- Loading -->
+        <div class="loading" id="loading" style="display:none">
+          <div class="spinner"></div>
+          <p>AI is crafting your document...</p>
+        </div>
+
+        <!-- Output Content -->
+        <div class="output-content" id="output-content" style="display:none">
+          <pre id="output-text"></pre>
+        </div>
+
+        <!-- Tips Section -->
+        <div class="tips-panel" id="tips-panel" style="display:none">
+          <div class="tips-header">
+            <h3>💡 AI Improvement Tips</h3>
+            <button class="close-tips" onclick="closeTips()">✕</button>
+          </div>
+          <div class="tips-loading" id="tips-loading" style="display:none">
+            <div class="spinner small"></div> Analyzing your document...
+          </div>
+          <div id="tips-content"></div>
+        </div>
+
+        <!-- Toast -->
+        <div class="toast" id="toast"></div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>Built with ❤️ using Python, Flask & Claude AI &nbsp;|&nbsp; AI Resume Builder Project</p>
+  </footer>
+
+  <script src="/static/js/main.js"></script>
+</body>
+</html>
